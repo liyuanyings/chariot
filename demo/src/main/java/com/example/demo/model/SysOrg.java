@@ -13,6 +13,8 @@ public class SysOrg implements Serializable {
 
     private String name;
 
+    private Long parentId;
+
     private String description;
 
     private Integer status;

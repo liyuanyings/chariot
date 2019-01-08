@@ -1,4 +1,4 @@
-package com.example.demo.common;
+package com.example.demo.util;
 
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
@@ -12,7 +12,7 @@ public class BeanUtils extends org.springframework.beans.BeanUtils {
         copyProperties(src, target, getNullPropertyNames(src));
     }
 
-    public static String[] getNullPropertyNames (Object source) {
+    public static String[] getNullPropertyNames(Object source) {
         final BeanWrapper wrappedSource = new BeanWrapperImpl(source);
         return Stream.of(wrappedSource.getPropertyDescriptors())
                 .map(FeatureDescriptor::getName)
