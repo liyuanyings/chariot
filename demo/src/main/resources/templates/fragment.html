@@ -1,0 +1,13 @@
+<head th:fragment="common_header(title,links)" xmlns:th="http://www.w3.org/1999/xhtml">
+    <meta charset="UTF-8">
+    <title th:replace="${title}">index</title>
+    <!-- Common styles and scripts -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!--/* Per-page placeholder for additional links */-->
+    <th:block th:replace="${links}" />
+</head>
+
+<div th:fragment="common_script" xmlns:th="http://www.w3.org/1999/xhtml">
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+</div>

@@ -33,6 +33,15 @@ spring:
       pool-prepared-statements: true
       max-open-prepared-statements: 20
 
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    check-template-location: true
+    suffix: .html
+    encoding: utf-8
+    mode: HTML5
+
+
 
 mybatis-plus:
   check-config-location: false
