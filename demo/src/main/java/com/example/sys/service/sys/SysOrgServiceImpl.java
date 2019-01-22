@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * @author lichunqing
+ */
 @Service
 public class SysOrgServiceImpl implements SysOrgService {
 
@@ -18,6 +21,22 @@ public class SysOrgServiceImpl implements SysOrgService {
 //    public SysOrgServiceImpl(SqlSession sqlSession) {
 //        this.sysOrgMapper = sqlSession.getMapper(SysOrgMapper.class);
 //    }
+
+    @Override
+    public SysOrg create(SysOrg org) {
+        return null;
+    }
+
+    @Override
+    public SysOrg get(long id) {
+        return sysOrgMapper.selectById(id);
+    }
+
+    @Override
+    public SysOrg update(SysOrg org) {
+        sysOrgMapper.updateById(org);
+        return sysOrgMapper.selectById(org.getId());
+    }
 
     @Override
     public List<SysOrg> list() {
@@ -31,7 +50,7 @@ public class SysOrgServiceImpl implements SysOrgService {
     }
 
     @Override
-    public List<SysOrg> listFirstLevel(String orgId) {
+    public List<SysOrg> listOnLevel(String orgId) {
         QueryWrapper<SysOrg> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("parentId", orgId);
         return sysOrgMapper.selectList(queryWrapper);

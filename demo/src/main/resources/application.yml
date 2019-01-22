@@ -3,7 +3,7 @@ debug: true
 # Logger Config
 logging:
   level:
-    com.example.demo: debug
+    com.example: debug
 
 server:
   port: 9090
@@ -41,6 +41,9 @@ spring:
     encoding: utf-8
     mode: HTML5
 
+  cache:
+    jcache:
+      config: classpath:cache/ehcache.xml
 
 
 mybatis-plus:
