@@ -1,33 +1,31 @@
 package com.example.base.common.enums;
 
-import com.baomidou.mybatisplus.core.enums.IEnum;
-
-/**
- * @program: sys
- * @description:
- * @author: WT1124
- * @create: 2019-01-08 17:03
- **/
 public enum EGender implements IEnum<Integer> {
 
     /**
      *
      */
-    GenderEnum(1, "男性"),
+    MALE(1, "男性"),
 
     FEMALE(2, "女性");
 
-    private int value;
+    private int code;
 
-    private String desc;
+    private String description;
 
-    EGender(final int value, final String desc) {
-        this.value = value;
-        this.desc = desc;
+    EGender(final int code, final String description) {
+        this.code = code;
+        this.description = description;
+    }
+
+
+    @Override
+    public Integer getCode() {
+        return code;
     }
 
     @Override
-    public Integer getValue() {
-        return value;
+    public String getDescription() {
+        return description;
     }
 }

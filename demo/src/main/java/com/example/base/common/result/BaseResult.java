@@ -1,8 +1,10 @@
 package com.example.base.common.result;
 
+import com.example.base.common.enums.IEnum;
+
 import java.io.Serializable;
 
-public class BaseResponse implements Serializable {
+public class BaseResult implements Serializable {
 
     private static final long serialVersionUID = 1638693422783183022L;
 
@@ -13,14 +15,14 @@ public class BaseResponse implements Serializable {
     private Object data;
 
     public static Builder success(){
-        return new Builder(EResult.SUCCESS);
+        return new Builder(EBaseResult.SUCCESS);
     }
 
     public static Builder error(){
-        return new Builder(EResult.FAILED);
+        return new Builder(EBaseResult.FAILED);
     }
 
-    public static Builder error(IResult result){
+    public static Builder error(IEnum result){
         return new Builder(result);
     }
 
@@ -41,9 +43,9 @@ public class BaseResponse implements Serializable {
         private Builder() {
         }
 
-        private Builder(IResult result){
-            this.retcode = result.retcode();
-            this.retmsg = result.retmsg();
+        private Builder(IEnum result){
+            this.retcode = (String) result.getCode();
+            this.retmsg = result.getDescription();
         }
 
         public Builder retcode(String retcode) {
@@ -61,8 +63,8 @@ public class BaseResponse implements Serializable {
             return this;
         }
 
-        public BaseResponse build() {
-            BaseResponse response = new BaseResponse();
+        public BaseResult build() {
+            BaseResult response = new BaseResult();
             response.retcode = this.retcode;
             response.retmsg = this.retmsg;
             response.data = this.data;

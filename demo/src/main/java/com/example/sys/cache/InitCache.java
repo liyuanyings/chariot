@@ -1,6 +1,6 @@
 package com.example.sys.cache;
 
-import com.example.sys.model.SysOrg;
+import com.example.sys.model.entity.SysOrg;
 import com.example.sys.service.sys.SysOrgService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;

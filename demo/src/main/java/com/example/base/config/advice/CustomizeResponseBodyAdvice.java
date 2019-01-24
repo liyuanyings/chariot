@@ -1,6 +1,6 @@
 package com.example.base.config.advice;
 
-import com.example.base.common.result.BaseResponse;
+import com.example.base.common.result.BaseResult;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -24,9 +24,9 @@ public class CustomizeResponseBodyAdvice implements ResponseBodyAdvice<Object> {
     public Object beforeBodyWrite(Object body, MethodParameter methodParameter, MediaType mediaType,
                                   Class<? extends HttpMessageConverter<?>> selectedConverterType,
                                   ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
-        if(body instanceof BaseResponse){
+        if(body instanceof BaseResult){
             return body;
         }
-        return BaseResponse.success().data(body).build();
+        return BaseResult.success().data(body).build();
     }
 }

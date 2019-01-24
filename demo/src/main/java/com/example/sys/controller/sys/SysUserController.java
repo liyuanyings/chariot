@@ -1,7 +1,6 @@
 package com.example.sys.controller.sys;
 
-import com.example.sys.model.SysOrg;
-import com.example.sys.service.sys.SysUserService;
+import com.example.sys.model.entity.SysOrg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,10 +12,10 @@ import java.util.List;
 @RequestMapping("/sys/user")
 public class SysUserController {
 
-    private final SysUserService SysUserService;
+    private final com.example.sys.service.sys.SysUserService SysUserService;
 
     @Autowired
-    public SysUserController(SysUserService SysUserService) {
+    public SysUserController(com.example.sys.service.sys.SysUserService SysUserService) {
         this.SysUserService = SysUserService;
     }
 

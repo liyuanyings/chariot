@@ -1,4 +1,4 @@
-package com.example.sys.model;
+package com.example.sys.model.entity;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -6,6 +6,9 @@ import lombok.experimental.Accessors;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * @author lichunqing
+ */
 @Data
 @Accessors(chain = true)
 public class SysUser implements Serializable {

@@ -1,6 +1,6 @@
 package com.example.sys.service.sys;
 
-import com.example.sys.model.SysRole;
+import com.example.sys.model.entity.SysRole;
 
 public interface SysRoleService {
 

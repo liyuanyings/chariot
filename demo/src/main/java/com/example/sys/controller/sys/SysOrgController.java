@@ -1,8 +1,8 @@
 package com.example.sys.controller.sys;
 
 import com.example.base.common.tree.TreeNode;
-import com.example.base.util.TreeUtils;
-import com.example.sys.model.SysOrg;
+import com.example.base.common.tree.TreeUtils;
+import com.example.sys.model.entity.SysOrg;
 import com.example.sys.service.sys.SysOrgService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

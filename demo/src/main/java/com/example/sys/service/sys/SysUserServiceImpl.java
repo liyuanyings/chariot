@@ -2,7 +2,7 @@ package com.example.sys.service.sys;
 
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.example.sys.mapper.SysUserMapper;
-import com.example.sys.model.SysUser;
+import com.example.sys.model.entity.SysUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

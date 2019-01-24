@@ -21,8 +21,6 @@ public class SysCacheHelper {
 
     private static CacheManager cacheManager = SpringContextUtils.getBean(CacheManager.class);
 
-
-
     /**
      * 获取缓存
      * @param cacheName

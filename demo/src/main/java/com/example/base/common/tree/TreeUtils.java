@@ -1,4 +1,4 @@
-package com.example.base.util;
+package com.example.base.common.tree;
 
 import com.example.base.common.tree.TreeNode;
 

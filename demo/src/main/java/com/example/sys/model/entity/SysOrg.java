@@ -1,10 +1,13 @@
-package com.example.sys.model;
+package com.example.sys.model.entity;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 
+/**
+ * @author lichunqing
+ */
 @Data
 @Accessors(chain = true)
 public class SysOrg implements Serializable {
@@ -18,4 +21,6 @@ public class SysOrg implements Serializable {
     private String description;
 
     private Integer status;
+
+    private String path;
 }

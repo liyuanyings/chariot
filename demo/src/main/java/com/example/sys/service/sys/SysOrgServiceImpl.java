@@ -1,8 +1,11 @@
 package com.example.sys.service.sys;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.example.base.common.Const;
 import com.example.sys.mapper.SysOrgMapper;
-import com.example.sys.model.SysOrg;
+import com.example.sys.model.entity.SysOrg;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,23 +20,28 @@ public class SysOrgServiceImpl implements SysOrgService {
     @Autowired
     private SysOrgMapper sysOrgMapper;
 
-//    @Autowired
-//    public SysOrgServiceImpl(SqlSession sqlSession) {
-//        this.sysOrgMapper = sqlSession.getMapper(SysOrgMapper.class);
-//    }
-
     @Override
     public SysOrg create(SysOrg org) {
-        return null;
+        if(org.getParentId() == null){
+            org.setPath(Const.SLASH);
+        }else{
+            org.setPath( this.buildSysOrgPath(org.getParentId()) );
+        }
+        sysOrgMapper.insert(org);
+        return org;
     }
 
     @Override
-    public SysOrg get(long id) {
+    public SysOrg get(Long id) {
         return sysOrgMapper.selectById(id);
     }
 
     @Override
     public SysOrg update(SysOrg org) {
+        // 如果传过来parentId不为空，则对path进行修改，否则默认不动
+        if(org.getParentId() != null){
+            org.setPath( this.buildSysOrgPath(org.getParentId()) );
+        }
         sysOrgMapper.updateById(org);
         return sysOrgMapper.selectById(org.getId());
     }
@@ -45,12 +53,14 @@ public class SysOrgServiceImpl implements SysOrgService {
     }
 
     @Override
-    public List<SysOrg> list(List<String> orgIds) {
-        return null;
+    public List<SysOrg> list(List<Long> orgIds) {
+        QueryWrapper<SysOrg> queryWrapper = new QueryWrapper<>();
+        queryWrapper.in("id", orgIds);
+        return sysOrgMapper.selectList(queryWrapper);
     }
 
     @Override
-    public List<SysOrg> listOnLevel(String orgId) {
+    public List<SysOrg> listOnLevel(Long orgId) {
         QueryWrapper<SysOrg> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("parentId", orgId);
         return sysOrgMapper.selectList(queryWrapper);
@@ -58,11 +68,31 @@ public class SysOrgServiceImpl implements SysOrgService {
 
     @Override
     public List<SysOrg> listInDepth() {
-        return null;
+        QueryWrapper<SysOrg> queryWrapper = new QueryWrapper<>();
+        return sysOrgMapper.selectList(queryWrapper);
     }
 
     @Override
-    public List<SysOrg> listInDepth(String orgId) {
-        return null;
+    public List<SysOrg> listInDepth(Long orgId) {
+        QueryWrapper<SysOrg> queryWrapper = new QueryWrapper<>();
+        queryWrapper.likeLeft("path", orgId);
+        return sysOrgMapper.selectList(queryWrapper);
+    }
+
+    @Override
+    public IPage<SysOrg> page(String name, Long parentId, IPage<SysOrg> page) {
+        QueryWrapper<SysOrg> queryWrapper = new QueryWrapper<>();
+        if(StringUtils.isNotEmpty(name)){
+            queryWrapper.like("name", name);
+        }
+        if(parentId != null){
+            queryWrapper.eq("parentId", parentId);
+        }
+        return sysOrgMapper.selectPage(page, queryWrapper);
+    }
+
+    private String buildSysOrgPath(long parentId){
+        SysOrg parent = this.get(parentId);
+        return parent.getPath() + parent.getId() + Const.SLASH;
     }
 }

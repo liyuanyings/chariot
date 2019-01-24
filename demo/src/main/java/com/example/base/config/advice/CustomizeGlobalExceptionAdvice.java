@@ -1,8 +1,8 @@
 package com.example.base.config.advice;
 
-import com.example.base.common.BaseException;
-import com.example.base.common.result.EResult;
-import com.example.base.common.result.BaseResponse;
+import com.example.base.common.exception.BaseException;
+import com.example.base.common.result.EBaseResult;
+import com.example.base.common.result.BaseResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -27,17 +27,17 @@ public class CustomizeGlobalExceptionAdvice {
     @ExceptionHandler(value = Exception.class)
     @ResponseBody
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public BaseResponse exceptionHandler(Exception e) {
+    public BaseResult exceptionHandler(Exception e) {
         logger.error("system exception: ", e);
-        return BaseResponse.error(EResult.INTERNAL_SERVER_ERROR).build();
+        return BaseResult.error(EBaseResult.SERVER_ERROR).build();
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseBody
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    private BaseResponse methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e) {
+    private BaseResult methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e) {
         logger.error("invalid request: ", e);
-        return BaseResponse.error().retmsg(e.getMessage()).build();
+        return BaseResult.error().retmsg(e.getMessage()).build();
     }
 
     /**
@@ -49,13 +49,13 @@ public class CustomizeGlobalExceptionAdvice {
     @ExceptionHandler(NoHandlerFoundException.class)
     @ResponseBody
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    private BaseResponse noHandlerFoundExceptionHandler(NoHandlerFoundException e) {
-        return BaseResponse.error(EResult.PAGE_NOT_FOUND).retmsg(e.getMessage()).build();
+    private BaseResult noHandlerFoundExceptionHandler(NoHandlerFoundException e) {
+        return BaseResult.error(EBaseResult.PAGE_NOT_FOUND).retmsg(e.getMessage()).build();
     }
 
     @ExceptionHandler(BaseException.class)
     @ResponseBody
-    private BaseResponse customizeRuntimeExceptionHandler(BaseException e) {
-        return BaseResponse.error().retcode(e.getCode()).retmsg(e.getMessage()).build();
+    private BaseResult customizeRuntimeExceptionHandler(BaseException e) {
+        return BaseResult.error().retcode(e.getRetcode()).retmsg(e.getRetmsg()).build();
     }
 }

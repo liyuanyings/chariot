@@ -1,7 +1,5 @@
 package com.example.base.common.enums;
 
-import com.baomidou.mybatisplus.core.enums.IEnum;
-
 public enum EDeleted implements IEnum<Integer> {
 
     // 删除标记
@@ -9,17 +7,22 @@ public enum EDeleted implements IEnum<Integer> {
 
     DELETED(1, "已删除");
 
-    private int value;
+    private int code;
 
-    private String desc;
+    private String description;
 
-    EDeleted(Integer value, String desc) {
-        this.value = value;
-        this.desc = desc;
+    EDeleted(Integer code, String description) {
+        this.code = code;
+        this.description = description;
     }
 
     @Override
-    public Integer getValue() {
+    public Integer getCode() {
+        return null;
+    }
+
+    @Override
+    public String getDescription() {
         return null;
     }
 }
