@@ -15,7 +15,7 @@ public class DemoApplication {
 
 	@RequestMapping("/")
 	public String toIndex() {
-		return "index";
+		return "frame";
 	}
 
 	public static void main(String[] args) {

@@ -1,61 +1,52 @@
 package com.example.base.common.enums;
 
-
-import com.baomidou.mybatisplus.core.enums.IEnum;
-
-import java.lang.reflect.Field;
-import java.math.BigDecimal;
-import java.util.Objects;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
- * <p>
- * 枚举处理工具类
- * </p>
- *
- * @author hubin
- * @since 2017-10-11
+ * @author lichunqing
  */
 public class EnumUtils {
 
-    /**
-     * <p>
-     * 值映射为枚举
-     * </p>
-     *
-     * @param enumClass 枚举类
-     * @param value     枚举值
-     * @param <E>       对应枚举
-     * @return
-     */
-    public static <E extends Enum<?> & IEnum> E valueOf(Class<E> enumClass, Object value) {
-        E[] es = enumClass.getEnumConstants();
-        for (E e : es) {
-            Object evalue = e.getValue();
-            if (value instanceof Number && evalue instanceof Number
-                && new BigDecimal(String.valueOf(value)).compareTo(new BigDecimal(String.valueOf(evalue))) == 0) {
-                return e;
-            }
-            if (Objects.equals(evalue, value)) {
+
+    public static <E extends Enum<E> & IEnum> Map<String, String> getEnumMap(final Class<E> enumClass) {
+        final Map<String, String> map = new LinkedHashMap<>();
+        for(E e : enumClass.getEnumConstants()){
+            map.put(String.valueOf(e.getCode()), e.getDescription());
+        }
+        return map;
+    }
+
+    public static <E extends Enum<E> & IEnum> E getEnumByName(final Class<E> enumClass, final String enumName) {
+        if (enumName == null) {
+            return null;
+        }
+        try {
+            return Enum.valueOf(enumClass, enumName);
+        } catch (final IllegalArgumentException ex) {
+            return null;
+        }
+    }
+
+    public static <E extends Enum<E> & IEnum> E getEnumByCode(final Class<E> enumClass, final String code) {
+        if (code == null) {
+            return null;
+        }
+        for(E e : enumClass.getEnumConstants()){
+            if(e.getCode().equals(code)){
                 return e;
             }
         }
         return null;
     }
 
-    public static <E extends Enum<?>> E valueOf(Class<E> enumClass, Object value, Field enumField) {
-        E[] es = enumClass.getEnumConstants();
-        for (E e : es) {
-            try {
-                Object evalue = enumField.get(e);
-                if (value instanceof Number && evalue instanceof Number
-                    && new BigDecimal(String.valueOf(value)).compareTo(new BigDecimal(String.valueOf(evalue))) == 0) {
-                    return e;
-                }
-                if (Objects.equals(evalue, value)) {
-                    return e;
-                }
-            } catch (IllegalAccessException ignored) {
-
+    public static <E extends Enum<E> & IEnum> E getEnumByDescription(final Class<E> enumClass, final String description) {
+        if (description == null) {
+            return null;
+        }
+        for(E e : enumClass.getEnumConstants()){
+            if(e.getDescription().equals(description)){
+                return e;
             }
         }
         return null;
