@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="fragment :: common_header(~{::title}, ~{::link}, ~{::style})">
+    <title>首页</title>
+    <link rel="stylesheet">
+    <style type="text/css">
+        body{margin:0; padding:0; width:100%; height: 100%;}
+        #container {background: #409eff; height: 400px; width: 400px;}
+    </style>
+</head>
+<body>
+<div id="container">
+
+</div>
+<th:block th:include="fragment :: common_script" />
+</body>
+</html>
